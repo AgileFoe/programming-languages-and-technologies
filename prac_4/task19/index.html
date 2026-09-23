@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявка на стажировку</title>
+    <link rel="stylesheet" href="C:\Users\Student\Project\programming-languages-and-technologies\prac_4\task19\style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Заявка на стажировку</h1>
+
+    <form id="internshipForm">
+
+        <label for="fullName">ФИО:</label>
+        <input type="text" id="fullName" placeholder="Введите ФИО">
+        <p class="error" id="fullNameError"></p>
+
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" placeholder="example@mail.com">
+        <p class="error" id="emailError"></p>
+
+        <label for="course">Курс:</label>
+        <select id="course">
+            <option value="">Выберите курс</option>
+            <option value="1 курс">1 курс</option>
+            <option value="2 курс">2 курс</option>
+            <option value="3 курс">3 курс</option>
+            <option value="4 курс">4 курс</option>
+        </select>
+        <p class="error" id="courseError"></p>
+
+        <label for="direction">Направление:</label>
+        <select id="direction">
+            <option value="">Выберите направление</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="Мобильная разработка">Мобильная разработка</option>
+            <option value="Тестирование">Тестирование</option>
+        </select>
+        <p class="error" id="directionError"></p>
+
+        <p>Навыки:</p>
+
+        <label>
+            <input type="checkbox" name="skill" value="HTML/CSS">
+            HTML/CSS
+        </label>
+
+        <label>
+            <input type="checkbox" name="skill" value="JavaScript">
+            JavaScript
+        </label>
+
+        <label>
+            <input type="checkbox" name="skill" value="Python">
+            Python
+        </label>
+
+        <label>
+            <input type="checkbox" name="skill" value="Git">
+            Git
+        </label>
+
+        <p class="error" id="skillsError"></p>
+
+        <label for="motivation">Мотивационное письмо:</label>
+        <textarea
+            id="motivation"
+            placeholder="Расскажите, почему вы хотите пройти стажировку..."
+        ></textarea>
+
+        <div id="counter">0 символов</div>
+
+        <p class="error" id="motivationError"></p>
+
+        <button type="submit">Отправить заявку</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

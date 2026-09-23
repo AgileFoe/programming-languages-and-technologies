@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись к врачу</title>
+    <link rel="stylesheet" href="C:\Users\Student\Project\programming-languages-and-technologies\prac_4\task11\style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Запись к врачу</h1>
+
+    <form id="doctorForm">
+
+        <label for="fullName">ФИО:</label>
+        <input type="text" id="fullName" placeholder="Введите ФИО">
+        <p class="error" id="fullNameError"></p>
+
+        <label for="doctor">Специальность врача:</label>
+        <select id="doctor">
+            <option value="">Выберите врача</option>
+            <option value="Терапевт">Терапевт</option>
+            <option value="Стоматолог">Стоматолог</option>
+            <option value="Кардиолог">Кардиолог</option>
+            <option value="Офтальмолог">Офтальмолог</option>
+        </select>
+        <p class="error" id="doctorError"></p>
+
+        <label for="date">Дата:</label>
+        <input type="date" id="date">
+        <p class="error" id="dateError"></p>
+
+        <label for="time">Время:</label>
+        <input type="time" id="time">
+        <p class="error" id="timeError"></p>
+
+        <p>Тип приёма:</p>
+
+        <label>
+            <input type="radio" name="visitType" value="Первичный">
+            Первичный приём
+        </label>
+
+        <label>
+            <input type="radio" name="visitType" value="Повторный">
+            Повторный приём
+        </label>
+
+        <p class="error" id="visitTypeError"></p>
+
+        <button type="submit">Записаться</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

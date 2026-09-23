@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на курс</title>
+    <link rel="stylesheet" href="C:\Users\Student\Project\programming-languages-and-technologies\prac_4\task4\style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Запись на курс</h1>
+
+    <form id="courseForm">
+
+        <label for="name">Имя:</label>
+        <input type="text" id="name" placeholder="Введите имя">
+        <p class="error" id="nameError"></p>
+
+        <label for="phone">Телефон:</label>
+        <input type="tel" id="phone" placeholder="+7 700 123 45 67">
+        <p class="error" id="phoneError"></p>
+
+        <label for="direction">Направление обучения:</label>
+        <select id="direction">
+            <option value="">Выберите направление</option>
+            <option value="Программирование">Программирование</option>
+            <option value="Дизайн">Дизайн</option>
+            <option value="Маркетинг">Маркетинг</option>
+        </select>
+        <p class="error" id="directionError"></p>
+
+        <p>Формат обучения:</p>
+
+        <label>
+            <input type="radio" name="format" value="Очно">
+            Очно
+        </label>
+
+        <label>
+            <input type="radio" name="format" value="Онлайн">
+            Онлайн
+        </label>
+
+        <p class="error" id="formatError"></p>
+
+        <button type="submit">Записаться</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
