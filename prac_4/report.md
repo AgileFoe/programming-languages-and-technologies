@@ -110,6 +110,8 @@ courseForm.addEventListener("submit", function (event) {
         `Запись выполнена: ${name}, ${direction}, ${format.value}.`;
 });
 
+![alt text](image.png)
+
 Вариант 11. Форма записи к врачу
 Условие
 
@@ -202,6 +204,8 @@ doctorForm.addEventListener("submit", function (event) {
     message.textContent =
         `Запись подтверждена: ${fullName}, ${doctor}, ${date} ${time}.`;
 });
+
+![alt text](image-1.png)
 
 Вариант 19. Форма заявки на стажировку
 Условие
@@ -396,6 +400,8 @@ p[id$="Message"] {
     color: #d00;
     font-weight: bold;
 }
+
+![alt text](image-2.png)
 
 3. Тестирование
 №	Вариант	Сценарий	Результат
