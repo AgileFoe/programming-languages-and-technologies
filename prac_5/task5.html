@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Таблица умножения</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            padding: 40px;
+        }
+
+        .container {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 10px #ccc;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 150px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Таблица умножения</h2>
+
+    <input type="number" id="number" placeholder="Число от 1 до 10">
+
+    <button onclick="multiplication()">
+        Показать
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+    function multiplication() {
+
+        let number = Number(
+            document.getElementById("number").value
+        );
+
+        let result =
+            document.getElementById("result");
+
+        if (number < 1 || number > 10) {
+            result.innerHTML =
+                "Введите число от 1 до 10";
+            return;
+        }
+
+        result.innerHTML = "";
+
+        for (let i = 1; i <= 10; i++) {
+            result.innerHTML +=
+                `${number} × ${i} = ${number * i}<br>`;
+        }
+    }
+</script>
+
+</body>
+</html>

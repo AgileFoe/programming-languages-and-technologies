@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Проверка пароля</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            padding: 40px;
+        }
+
+        .container {
+            width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px #ccc;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        #result {
+            margin-top: 20px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Проверка пароля</h2>
+
+    <p>Требования:</p>
+
+    <ul>
+        <li>Минимум 8 символов</li>
+        <li>Должна быть хотя бы одна цифра</li>
+    </ul>
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Введите пароль"
+    >
+
+    <button onclick="checkPassword()">
+        Проверить
+    </button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+    function checkPassword() {
+
+        let password =
+            document.getElementById("password").value;
+
+        let result =
+            document.getElementById("result");
+
+        // Проверяем длину пароля
+        let lengthOk = password.length >= 8;
+
+        // Проверяем наличие цифры
+        let digitOk = /\d/.test(password);
+
+        result.innerHTML = `
+            <p class="${lengthOk ? 'success' : 'error'}">
+                ${lengthOk ? '✅' : '❌'}
+                Длина минимум 8 символов
+            </p>
+
+            <p class="${digitOk ? 'success' : 'error'}">
+                ${digitOk ? '✅' : '❌'}
+                Есть цифра
+            </p>
+
+            <hr>
+
+            <p>
+                <strong>
+                    ${
+                        lengthOk && digitOk
+                        ? '✅ Пароль подходит'
+                        : '❌ Пароль не подходит'
+                    }
+                </strong>
+            </p>
+        `;
+    }
+</script>
+
+</body>
+</html>

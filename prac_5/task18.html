@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Электронный журнал</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f7;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .subjects {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .subject {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .subject input {
+            padding: 8px;
+            width: 130px;
+        }
+
+        button {
+            padding: 9px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2980b9;
+        }
+
+        .delete {
+            background: #e74c3c;
+            padding: 7px 10px;
+        }
+
+        .delete:hover {
+            background: #c0392b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        td input {
+            width: 55px;
+            padding: 6px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f7f7f7;
+        }
+
+        .average {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Электронный журнал</h1>
+
+    <h3>Название предметов</h3>
+
+    <div id="subjects" class="subjects"></div>
+
+    <button onclick="addSubject()">
+        + Добавить предмет
+    </button>
+
+    <div class="controls">
+        <button onclick="addStudent()">
+            + Добавить студента
+        </button>
+    </div>
+
+    <div id="journal"></div>
+
+</div>
+
+
+<script>
+
+    // ==========================================
+    // Данные журнала
+    // ==========================================
+
+    let subjects = [
+        "Математика",
+        "Информатика",
+        "История"
+    ];
+
+    let students = [
+        {
+            name: "Иван",
+            grades: [5, 4, 5]
+        },
+
+        {
+            name: "Анна",
+            grades: [5, 5, 4]
+        },
+
+        {
+            name: "Петр",
+            grades: [3, 4, 3]
+        },
+
+        {
+            name: "Мария",
+            grades: [4, 5, 5]
+        }
+    ];
+
+
+    // ==========================================
+    // Отображение названий предметов
+    // ==========================================
+
+    function renderSubjects() {
+
+        let container =
+            document.getElementById("subjects");
+
+        container.innerHTML = "";
+
+        subjects.forEach(function(subject, index) {
+
+            let div =
+                document.createElement("div");
+
+            div.className = "subject";
+
+            div.innerHTML = `
+                <input
+                    type="text"
+                    value="${subject}"
+                    onchange="changeSubject(${index}, this.value)"
+                >
+
+                <button
+                    class="delete"
+                    onclick="deleteSubject(${index})"
+                >
+                    X
+                </button>
+            `;
+
+            container.appendChild(div);
+        });
+    }
+
+
+    // ==========================================
+    // Изменение названия предмета
+    // ==========================================
+
+    function changeSubject(index, newName) {
+
+        if (newName.trim() === "") {
+            alert("Название предмета не может быть пустым");
+            renderSubjects();
+            return;
+        }
+
+        subjects[index] = newName;
+
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Добавление предмета
+    // ==========================================
+
+    function addSubject() {
+
+        let name =
+            prompt("Введите название предмета:");
+
+        if (name === null || name.trim() === "") {
+            return;
+        }
+
+        subjects.push(name);
+
+        // Добавляем новую оценку каждому студенту
+        students.forEach(function(student) {
+            student.grades.push(0);
+        });
+
+        renderSubjects();
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Удаление предмета
+    // ==========================================
+
+    function deleteSubject(index) {
+
+        if (subjects.length <= 1) {
+            alert("Должен остаться хотя бы один предмет");
+            return;
+        }
+
+        subjects.splice(index, 1);
+
+        students.forEach(function(student) {
+            student.grades.splice(index, 1);
+        });
+
+        renderSubjects();
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Отображение таблицы
+    // ==========================================
+
+    function renderTable() {
+
+        let journal =
+            document.getElementById("journal");
+
+        journal.innerHTML = "";
+
+        let table =
+            document.createElement("table");
+
+
+        // Заголовок таблицы
+        let header =
+            table.insertRow();
+
+        let nameHeader =
+            header.insertCell();
+
+        nameHeader.textContent = "Студент";
+
+
+        // Предметы
+        subjects.forEach(function(subject) {
+
+            let cell =
+                header.insertCell();
+
+            cell.textContent = subject;
+        });
+
+
+        // Средний балл
+        let averageHeader =
+            header.insertCell();
+
+        averageHeader.textContent =
+            "Средний балл";
+
+
+        // Кнопка удаления
+        let actionHeader =
+            header.insertCell();
+
+        actionHeader.textContent =
+            "Действие";
+
+
+        // ==========================================
+        // Студенты
+        // ==========================================
+
+        students.forEach(function(student, studentIndex) {
+
+            let row =
+                table.insertRow();
+
+
+            // Имя студента
+            let nameCell =
+                row.insertCell();
+
+            nameCell.innerHTML = `
+                <input
+                    type="text"
+                    value="${student.name}"
+                    onchange="
+                        changeStudentName(
+                            ${studentIndex},
+                            this.value
+                        )
+                    "
+                >
+            `;
+
+
+            // Оценки
+            student.grades.forEach(function(grade, gradeIndex) {
+
+                let gradeCell =
+                    row.insertCell();
+
+                gradeCell.innerHTML = `
+                    <input
+                        type="number"
+                        min="1"
+                        max="5"
+                        value="${grade}"
+                        onchange="
+                            changeGrade(
+                                ${studentIndex},
+                                ${gradeIndex},
+                                this.value
+                            )
+                        "
+                    >
+                `;
+            });
+
+
+            // Средний балл
+            let averageCell =
+                row.insertCell();
+
+            let sum = 0;
+            let count = 0;
+
+
+            student.grades.forEach(function(grade) {
+
+                let number =
+                    Number(grade);
+
+                if (number >= 1 && number <= 5) {
+                    sum += number;
+                    count++;
+                }
+            });
+
+
+            let average =
+                count > 0
+                    ? sum / count
+                    : 0;
+
+
+            averageCell.className =
+                "average";
+
+            averageCell.textContent =
+                average.toFixed(2);
+
+
+            // Кнопка удаления студента
+            let actionCell =
+                row.insertCell();
+
+            actionCell.innerHTML = `
+                <button
+                    class="delete"
+                    onclick="deleteStudent(${studentIndex})"
+                >
+                    Удалить
+                </button>
+            `;
+        });
+
+
+        journal.appendChild(table);
+    }
+
+
+    // ==========================================
+    // Изменение оценки
+    // ==========================================
+
+    function changeGrade(
+        studentIndex,
+        gradeIndex,
+        value
+    ) {
+
+        let grade =
+            Number(value);
+
+
+        if (grade < 1 || grade > 5) {
+
+            alert("Оценка должна быть от 1 до 5");
+
+            renderTable();
+
+            return;
+        }
+
+
+        students[studentIndex]
+            .grades[gradeIndex] = grade;
+
+
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Изменение имени студента
+    // ==========================================
+
+    function changeStudentName(
+        index,
+        newName
+    ) {
+
+        if (newName.trim() === "") {
+
+            alert("Имя не может быть пустым");
+
+            renderTable();
+
+            return;
+        }
+
+
+        students[index].name =
+            newName;
+
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Добавление студента
+    // ==========================================
+
+    function addStudent() {
+
+        let name =
+            prompt("Введите имя студента:");
+
+        if (
+            name === null ||
+            name.trim() === ""
+        ) {
+            return;
+        }
+
+
+        let grades =
+            subjects.map(function() {
+                return 0;
+            });
+
+
+        students.push({
+            name: name,
+            grades: grades
+        });
+
+
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Удаление студента
+    // ==========================================
+
+    function deleteStudent(index) {
+
+        students.splice(index, 1);
+
+        renderTable();
+    }
+
+
+    // ==========================================
+    // Запуск программы
+    // ==========================================
+
+    renderSubjects();
+    renderTable();
+
+</script>
+
+</body>
+</html>
