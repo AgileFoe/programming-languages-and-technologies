@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина интернет-магазина</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f3f5;
+            color: #333;
+        }
+
+        header {
+            background: #212529;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .cart {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item.inactive {
+            opacity: 0.5;
+            background: #f8f9fa;
+        }
+
+        .product-image {
+            width: 100px;
+            height: 100px;
+            background: #e9ecef;
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 40px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: #666;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity button {
+            width: 35px;
+            height: 35px;
+
+            border: none;
+            background: #007bff;
+            color: white;
+
+            font-size: 20px;
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        .quantity button:hover {
+            background: #0056b3;
+        }
+
+        .quantity button:disabled {
+            background: #adb5bd;
+            cursor: not-allowed;
+        }
+
+        .quantity span {
+            min-width: 25px;
+            text-align: center;
+
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .item-total {
+            width: 130px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .delete {
+            border: none;
+            background: #dc3545;
+            color: white;
+
+            padding: 9px 12px;
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        .delete:hover {
+            background: #b02a37;
+        }
+
+        .restore {
+            border: none;
+            background: #198754;
+            color: white;
+
+            padding: 9px 12px;
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+        .restore:hover {
+            background: #146c43;
+        }
+
+        .summary {
+            margin-top: 25px;
+            padding-top: 20px;
+
+            border-top: 2px solid #333;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .total {
+            font-size: 26px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        #emptyCart {
+            display: none;
+
+            text-align: center;
+            padding: 30px;
+
+            font-size: 22px;
+            color: #777;
+        }
+
+        @media (max-width: 700px) {
+
+            .cart-item {
+                flex-wrap: wrap;
+            }
+
+            .product-info {
+                min-width: 200px;
+            }
+
+            .item-total {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Интернет-магазин</h1>
+</header>
+
+<div class="container">
+
+    <div class="cart">
+
+        <h2>Корзина</h2>
+
+        <div id="cartItems"></div>
+
+        <div id="emptyCart">
+            🛒 Корзина пуста
+        </div>
+
+        <div class="summary">
+
+            <div class="summary-row">
+                <span>Количество товаров:</span>
+                <span id="totalQuantity">0</span>
+            </div>
+
+            <div class="summary-row total">
+                <span>Итого:</span>
+                <span id="totalPrice">0 ₸</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    // Список товаров
+    let cart = [
+
+        {
+            id: 1,
+            name: "Ноутбук",
+            price: 350000,
+            quantity: 1,
+            image: "💻"
+        },
+
+        {
+            id: 2,
+            name: "Наушники",
+            price: 25000,
+            quantity: 2,
+            image: "🎧"
+        },
+
+        {
+            id: 3,
+            name: "Мышь",
+            price: 12000,
+            quantity: 1,
+            image: "🖱️"
+        }
+
+    ];
+
+
+    const cartItems = document.getElementById("cartItems");
+
+    const totalQuantity =
+        document.getElementById("totalQuantity");
+
+    const totalPrice =
+        document.getElementById("totalPrice");
+
+    const emptyCart =
+        document.getElementById("emptyCart");
+
+
+    // Форматирование цены
+    function formatPrice(price) {
+
+        return price.toLocaleString("ru-RU") + " ₸";
+
+    }
+
+
+    // Отображение корзины
+    function renderCart() {
+
+        cartItems.innerHTML = "";
+
+        let quantitySum = 0;
+
+        let priceSum = 0;
+
+
+        // Считаем только товары с количеством больше 0
+        cart.forEach(function(item) {
+
+            quantitySum += item.quantity;
+
+            priceSum += item.price * item.quantity;
+
+        });
+
+
+        // Если все товары имеют количество 0
+        if (quantitySum === 0) {
+
+            emptyCart.style.display = "block";
+
+        } else {
+
+            emptyCart.style.display = "none";
+
+        }
+
+
+        // Создание элементов товаров
+        cart.forEach(function(item) {
+
+            const itemElement =
+                document.createElement("div");
+
+
+            itemElement.className = "cart-item";
+
+
+            // Если количество 0,
+            // делаем товар визуально неактивным
+            if (item.quantity === 0) {
+
+                itemElement.classList.add("inactive");
+
+            }
+
+
+            itemElement.innerHTML = `
+
+                <div class="product-image">
+                    ${item.image}
+                </div>
+
+
+                <div class="product-info">
+
+                    <div class="product-name">
+                        ${item.name}
+                    </div>
+
+                    <div class="product-price">
+                        ${formatPrice(item.price)} за шт.
+                    </div>
+
+                </div>
+
+
+                <div class="quantity">
+
+                    <button
+                        onclick="changeQuantity(${item.id}, -1)"
+                        ${item.quantity === 0 ? "disabled" : ""}
+                    >
+                        −
+                    </button>
+
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+
+                    <button
+                        onclick="changeQuantity(${item.id}, 1)"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+
+                <div class="item-total">
+
+                    ${formatPrice(
+                        item.price * item.quantity
+                    )}
+
+                </div>
+
+
+                ${
+                    item.quantity > 0
+
+                    ?
+
+                    `
+                    <button
+                        class="delete"
+                        onclick="removeItem(${item.id})"
+                    >
+                        Удалить
+                    </button>
+                    `
+
+                    :
+
+                    `
+                    <button
+                        class="restore"
+                        onclick="restoreItem(${item.id})"
+                    >
+                        Добавить
+                    </button>
+                    `
+                }
+
+            `;
+
+
+            cartItems.appendChild(itemElement);
+
+        });
+
+
+        // Обновляем общие значения
+        totalQuantity.textContent =
+            quantitySum;
+
+
+        totalPrice.textContent =
+            formatPrice(priceSum);
+
+    }
+
+
+    // Изменение количества
+    function changeQuantity(id, change) {
+
+        const item = cart.find(function(product) {
+
+            return product.id === id;
+
+        });
+
+
+        if (!item) {
+
+            return;
+
+        }
+
+
+        item.quantity += change;
+
+
+        // Количество не может быть меньше 0
+        if (item.quantity < 0) {
+
+            item.quantity = 0;
+
+        }
+
+
+        renderCart();
+
+    }
+
+
+    // "Удаление" товара
+    // На самом деле устанавливаем количество в 0
+    function removeItem(id) {
+
+        const item = cart.find(function(product) {
+
+            return product.id === id;
+
+        });
+
+
+        if (!item) {
+
+            return;
+
+        }
+
+
+        item.quantity = 0;
+
+
+        renderCart();
+
+    }
+
+
+    // Повторное добавление товара
+    function restoreItem(id) {
+
+        const item = cart.find(function(product) {
+
+            return product.id === id;
+
+        });
+
+
+        if (!item) {
+
+            return;
+
+        }
+
+
+        // Если товар был 0,
+        // возвращаем количество 1
+        if (item.quantity === 0) {
+
+            item.quantity = 1;
+
+        }
+
+
+        renderCart();
+
+    }
+
+
+    // Первоначальное отображение
+    renderCart();
+
+</script>
+
+</body>
+</html>

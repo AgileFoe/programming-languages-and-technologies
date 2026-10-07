@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Блок заметок</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .input-block {
+            display: flex;
+            gap: 10px;
+        }
+
+        #noteInput {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        #addButton {
+            padding: 12px 20px;
+            border: none;
+            background: #007bff;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #addButton:hover {
+            background: #0056b3;
+        }
+
+        #notesList {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .note {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #007bff;
+        }
+
+        .deleteButton {
+            border: none;
+            background: #dc3545;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .deleteButton:hover {
+            background: #b02a37;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Мои заметки</h1>
+
+    <div class="input-block">
+        <input
+            type="text"
+            id="noteInput"
+            placeholder="Введите заметку..."
+        >
+
+        <button id="addButton">Добавить</button>
+    </div>
+
+    <ul id="notesList"></ul>
+</div>
+
+<script>
+    const noteInput = document.getElementById("noteInput");
+    const addButton = document.getElementById("addButton");
+    const notesList = document.getElementById("notesList");
+
+    function addNote() {
+        const text = noteInput.value.trim();
+
+        if (text === "") {
+            alert("Введите текст заметки!");
+            return;
+        }
+
+        const li = document.createElement("li");
+        li.className = "note";
+
+        const span = document.createElement("span");
+        span.textContent = text;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Удалить";
+        deleteButton.className = "deleteButton";
+
+        deleteButton.addEventListener("click", function () {
+            li.remove();
+        });
+
+        li.appendChild(span);
+        li.appendChild(deleteButton);
+
+        notesList.appendChild(li);
+
+        noteInput.value = "";
+        noteInput.focus();
+    }
+
+    addButton.addEventListener("click", addNote);
+
+    noteInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            addNote();
+        }
+    });
+</script>
+
+</body>
+</html>
