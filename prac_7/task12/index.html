@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Новости факультета</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Новости факультета информационных технологий</h1>
+  <nav id="tabs" role="tablist" aria-label="Разделы">
+    <button role="tab" data-page="news">Новости</button>
+    <button role="tab" data-page="events">События</button>
+    <button role="tab" data-page="notices">Объявления</button>
+  </nav>
+</header>
+<div class="tools">
+  <label for="search">Поиск по ключевому слову</label><br>
+  <input id="search" type="search" placeholder="Например: экзамен" autocomplete="off">
+  <p class="count" id="count" aria-live="polite"></p>
+</div>
+<main id="content" aria-live="polite"></main>
+<script src="app.js" defer></script>
+</body>
+</html>

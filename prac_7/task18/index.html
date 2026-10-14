@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Панель заказов</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Панель заказов</h1>
+  <nav id="tabs" role="tablist" aria-label="Статусы заказов">
+    <button role="tab" data-page="new">Новые<span class="badge" id="cnt-new">0</span></button>
+    <button role="tab" data-page="work">В работе<span class="badge" id="cnt-work">0</span></button>
+    <button role="tab" data-page="done">Готовые<span class="badge" id="cnt-done">0</span></button>
+  </nav>
+</header>
+<div class="tools">
+  <form class="add" id="add-form" novalidate>
+    <input id="f-client" placeholder="Клиент" aria-label="Клиент">
+    <input id="f-item" placeholder="Что заказано" aria-label="Что заказано">
+    <input id="f-sum" type="number" min="1" placeholder="Сумма, ₸" aria-label="Сумма">
+    <button class="act" type="submit">Добавить заказ</button>
+    <p class="err" id="form-error" role="alert"></p>
+  </form>
+</div>
+<main id="content" aria-live="polite"></main>
+<script src="app.js" defer></script>
+</body>
+</html>
