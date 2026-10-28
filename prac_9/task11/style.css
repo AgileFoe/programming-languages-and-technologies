@@ -1,0 +1,76 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 30px 16px;
+  font-family: Arial, sans-serif;
+  background: #f2f4f8;
+  color: #222;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  color: #243b64;
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input {
+  flex: 1;
+  min-width: 180px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  padding: 12px 20px;
+  background: #315bd6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.comment {
+  margin: 14px 0;
+  padding: 18px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px #00000010;
+}
+
+.comment h3 {
+  margin-top: 0;
+  color: #315bd6;
+  overflow-wrap: anywhere;
+}
+
+.comment p {
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.success {
+  color: #218838;
+}
+
+.error {
+  color: #c62828;
+}

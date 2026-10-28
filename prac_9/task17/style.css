@@ -1,0 +1,169 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 14px;
+  font: 14px Arial, sans-serif;
+  color: #273247;
+  background: #f5f7fb;
+}
+
+.container {
+  max-width: 680px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 24px;
+  margin: 0 0 18px;
+}
+
+h2 {
+  font-size: 17px;
+  margin: 0 0 12px;
+}
+
+.panel {
+  background: white;
+  padding: 16px;
+  margin-bottom: 14px;
+  border: 1px solid #e5e9f1;
+  border-radius: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #58657a;
+}
+
+.search {
+  display: flex;
+  gap: 8px;
+}
+
+input {
+  min-width: 0;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid #d5dbe6;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+button {
+  padding: 9px 13px;
+  border: 0;
+  border-radius: 6px;
+  color: white;
+  background: #4169df;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover {
+  background: #3055c5;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.status {
+  margin: 8px 0;
+  color: #69758a;
+}
+
+.error {
+  color: #c62828;
+}
+
+.success {
+  color: #218044;
+}
+
+.user-info {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #edf0f5;
+  line-height: 1.7;
+}
+
+.user-info strong {
+  font-size: 16px;
+}
+
+.post {
+  padding: 11px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.post:last-child {
+  border-bottom: 0;
+}
+
+.post-title {
+  margin: 0 0 5px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.post-body {
+  margin: 0 0 8px;
+  color: #69758a;
+  line-height: 1.5;
+}
+
+.small-btn {
+  padding: 6px 9px;
+  font-size: 12px;
+}
+
+.comment {
+  padding: 10px 0;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.comment:last-child {
+  border-bottom: 0;
+}
+
+.comment h3 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.comment p {
+  margin: 4px 0;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.comment-email {
+  color: #4169df;
+  font-size: 12px;
+}
+
+.count {
+  color: #7b879b;
+  font-weight: normal;
+}
+
+@media (max-width: 420px) {
+  body {
+    padding: 16px 10px;
+  }
+
+  .panel {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 21px;
+  }
+}
