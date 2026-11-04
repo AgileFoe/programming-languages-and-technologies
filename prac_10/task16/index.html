@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мини-CRM клиентов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <h1>👥 Мини-CRM клиентов</h1>
+
+        <h2>Добавить клиента</h2>
+
+        <form id="clientForm">
+
+            <input type="hidden" id="clientId">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Имя клиента"
+            >
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Телефон (+77001234567)"
+            >
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Электронная почта"
+            >
+
+            <button type="submit" id="submitButton">
+                Добавить клиента
+            </button>
+
+            <button type="button" id="cancelEdit" hidden>
+                Отменить редактирование
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <h2>Поиск клиентов</h2>
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Введите имя, телефон или email"
+        >
+
+        <h2>Список клиентов</h2>
+
+        <p id="clientCount">Всего клиентов: 0</p>
+
+        <div id="clientList"></div>
+
+    </div>
+
+    <script type="module" src="main.js"></script>
+
+</body>
+</html>

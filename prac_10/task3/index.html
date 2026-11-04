@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приветствие</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="card">
+    <label> Напишите своё имя <input id="name" type="text"></label>
+    <select name="type" id="type">выберите формат приветствия
+        <option value="formal">формально</option>
+        <option value="simple">просто</option>
+        <option value="casual">легкое</option>
+    </select>
+    <button id="say">готово</button>
+    <p id="result" aria-live="polite"></p>
+
+    </div>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

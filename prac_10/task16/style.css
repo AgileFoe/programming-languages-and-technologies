@@ -1,0 +1,237 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 45px 20px;
+    color: #f1f5f9;
+    background:
+        radial-gradient(circle at 10% 10%, #26356b 0, transparent 35%),
+        radial-gradient(circle at 90% 90%, #35205e 0, transparent 35%),
+        #101426;
+}
+
+/* Главный контейнер */
+
+.container {
+    max-width: 850px;
+    margin: auto;
+    padding: 35px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    background: rgba(27, 34, 59, 0.92);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+}
+
+/* Заголовки */
+
+h1 {
+    text-align: center;
+    font-size: 34px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #8b9cff, #d09bff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h2 {
+    font-size: 19px;
+    margin: 30px 0 17px;
+    color: #dce4ff;
+}
+
+/* Форма */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+input {
+    width: 100%;
+    padding: 15px 17px;
+    color: white;
+    background: #171e36;
+    border: 1px solid #343e62;
+    border-radius: 12px;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input::placeholder {
+    color: #8993b1;
+}
+
+input:focus {
+    border-color: #8997ff;
+    box-shadow: 0 0 0 3px rgba(137,151,255,0.15);
+}
+
+/* Кнопки */
+
+button {
+    padding: 13px 18px;
+    border: none;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #6878ff, #a16bff);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 20px rgba(112,111,255,0.3);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#cancelEdit {
+    background: #46516e;
+}
+
+#cancelEdit[hidden] {
+    display: none;
+}
+
+/* Сообщения */
+
+#message {
+    margin-top: 16px;
+    text-align: center;
+    color: #ff8f9b;
+    font-size: 13px;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+/* Поиск */
+
+#search {
+    margin-bottom: 15px;
+    background: #171e36;
+    border: 1px solid #46517a;
+}
+
+#search:focus {
+    border-color: #a16bff;
+}
+
+/* Счётчик клиентов */
+
+#clientCount {
+    display: inline-block;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background: rgba(113,129,255,0.13);
+    color: #aebaff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Карточки клиентов */
+
+.client-card {
+    position: relative;
+    padding: 22px;
+    margin: 14px 0;
+    border: 1px solid rgba(148,163,255,0.13);
+    border-left: 4px solid #8c82ff;
+    border-radius: 15px;
+    background: linear-gradient(
+        135deg,
+        #252e4d,
+        #1d2540
+    );
+    transition: 0.3s;
+    animation: appear 0.35s ease;
+}
+
+.client-card:hover {
+    transform: translateY(-4px);
+    border-color: #8c82ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.client-card h3 {
+    color: #c3caff;
+    font-size: 19px;
+    margin-bottom: 14px;
+}
+
+.client-card p {
+    color: #b2bad3;
+    font-size: 14px;
+    margin: 9px 0;
+    line-height: 1.5;
+}
+
+/* Кнопки карточек */
+
+.client-card button {
+    margin-top: 15px;
+    margin-right: 8px;
+    padding: 10px 15px;
+}
+
+.edit-btn {
+    background: linear-gradient(135deg, #e6a23c, #f07870);
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #ed5570, #bd3c66);
+}
+
+/* Анимация */
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптация телефона */
+
+@media (max-width: 600px) {
+    body {
+        padding: 15px 10px;
+    }
+
+    .container {
+        padding: 22px 16px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 17px;
+    }
+
+    .client-card button {
+        margin-top: 10px;
+        margin-right: 4px;
+    }
+}
