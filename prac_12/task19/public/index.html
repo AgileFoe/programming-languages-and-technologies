@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Сервис бронирований</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main>
+
+    <h1>Сервис бронирований</h1>
+
+    <section id="login">
+
+        <h2>Авторизация</h2>
+
+        <input id="username"
+               placeholder="Логин">
+
+        <input id="password"
+               type="password"
+               placeholder="Пароль">
+
+        <button id="loginBtn">
+            Войти
+        </button>
+
+        <p>Аккаунт 1: student1 / demo123</p>
+        <p>Аккаунт 2: student2 / demo123</p>
+
+    </section>
+
+    <section id="panel" class="hidden">
+
+        <p id="user"></p>
+
+        <h2>Новое бронирование</h2>
+
+        <input id="service"
+               placeholder="Услуга или ресурс">
+
+        <input id="date"
+               type="date">
+
+        <button id="create">
+            Забронировать
+        </button>
+
+        <button id="logout">
+            Выйти
+        </button>
+
+        <h2>Мои бронирования</h2>
+
+        <div id="bookings"></div>
+
+    </section>
+
+    <p id="message">
+        Войдите в систему для работы с бронированиями.
+    </p>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
